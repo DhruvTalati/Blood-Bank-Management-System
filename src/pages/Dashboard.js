@@ -22,14 +22,6 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await loadDashboardData();
-    };
-
-    fetchData();
-  }, [loadDashboardData]);
-
   const loadDashboardData = useCallback(async () => {
     try {
       setLoading(true);
@@ -70,7 +62,16 @@ function Dashboard() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isAdmin]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadDashboardData();
+    };
+
+    fetchData();
+  }, [loadDashboardData]);
+
 
   const totalUnits = BLOOD_GROUPS.reduce(
     (total, group) => total + Number(inventory[group] || 0),
