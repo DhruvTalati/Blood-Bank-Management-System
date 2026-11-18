@@ -25,7 +25,7 @@ function Users() {
   const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
-    name: "/",
+    name: "",
     email: "",
     password: "",
     role: "Staff",
