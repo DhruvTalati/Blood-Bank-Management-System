@@ -70,8 +70,9 @@ function Settings() {
     <div className="page-container">
       <div className="page-header">
         <div>
+          <p className="page-kicker">Preferences</p>
           <h1>Settings</h1>
-          <p>Manage your Blood Bank application preferences.</p>
+          <p>Appearance, alerts, and application details.</p>
         </div>
       </div>
 
@@ -82,7 +83,7 @@ function Settings() {
 
         <div className="settings-card">
           <div className="settings-card-header">
-            <div className="settings-icon">🎨</div>
+            <div className="settings-icon">Aa</div>
 
             <div>
               <h3>Appearance</h3>
@@ -113,7 +114,7 @@ function Settings() {
 
         <div className="settings-card">
           <div className="settings-card-header">
-            <div className="settings-icon">🔔</div>
+            <div className="settings-icon">!</div>
 
             <div>
               <h3>Notifications</h3>
@@ -146,7 +147,7 @@ function Settings() {
 
         <div className="settings-card">
           <div className="settings-card-header">
-            <div className="settings-icon">⚙️</div>
+            <div className="settings-icon">i</div>
 
             <div>
               <h3>System Information</h3>
@@ -176,7 +177,7 @@ function Settings() {
 
         <div className="settings-card danger-card">
           <div className="settings-card-header">
-            <div className="settings-icon">🔄</div>
+            <div className="settings-icon">↺</div>
 
             <div>
               <h3>Reset Settings</h3>

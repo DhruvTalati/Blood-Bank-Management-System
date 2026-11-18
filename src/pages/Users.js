@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
+import { IconPlus } from "../components/BrandIcons";
 
 function getCurrentUser() {
   try {
@@ -220,8 +221,9 @@ function Users() {
       <div className="page-container">
         <div className="page-header">
           <div>
+            <p className="page-kicker">Administration</p>
             <h1>Users</h1>
-            <p>Manage administrators and staff accounts.</p>
+            <p>Staff and administrator accounts are managed here.</p>
           </div>
         </div>
 
@@ -242,8 +244,8 @@ function Users() {
 
       <div className="page-header">
         <div>
+          <p className="page-kicker">Administration</p>
           <h1>Users</h1>
-
           <p>Manage administrators and staff accounts.</p>
         </div>
 
@@ -254,7 +256,8 @@ function Users() {
             setShowForm(true);
           }}
         >
-          + Add User
+          <IconPlus />
+          Add user
         </button>
       </div>
 
@@ -267,7 +270,7 @@ function Users() {
 
       <div className="dashboard-cards">
         <div className="dashboard-card">
-          <div className="card-icon">👥</div>
+          <div className="card-icon card-icon-donors">US</div>
 
           <div>
             <span>Total Users</span>
@@ -277,7 +280,7 @@ function Users() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">🟢</div>
+          <div className="card-icon card-icon-ok">ON</div>
 
           <div>
             <span>Active Users</span>
@@ -289,7 +292,7 @@ function Users() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">🛡️</div>
+          <div className="card-icon card-icon-alert">AD</div>
 
           <div>
             <span>Administrators</span>
@@ -303,7 +306,7 @@ function Users() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">👨‍💼</div>
+          <div className="card-icon card-icon-pending">ST</div>
 
           <div>
             <span>Staff</span>
@@ -317,14 +320,15 @@ function Users() {
 
       {/* SEARCH */}
 
-      <div className="user-toolbar">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search by name, email or role..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="user-toolbar donor-toolbar">
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search by name, email or role..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* USERS TABLE */}
@@ -345,8 +349,6 @@ function Users() {
           </div>
         ) : filteredUsers.length === 0 ? (
           <div className="dashboard-empty">
-            <div>👥</div>
-
             <p>No users found.</p>
           </div>
         ) : (

@@ -155,9 +155,9 @@ function Registration() {
     <div className="registration-page">
       <div className="page-header">
         <div>
-          <h2>Register New Donor</h2>
- 
-          <p>Add a new blood donor to the Blood Bank system.</p>
+          <p className="page-kicker">Registry</p>
+          <h1>Register donor</h1>
+          <p>Add a new blood donor to the LifeLine network.</p>
         </div>
  
         <button
@@ -182,7 +182,7 @@ function Registration() {
       )}
  
       <form onSubmit={handleSubmit}>
-        <FormSection title="Personal Information">
+        <FormSection icon="01" title="Personal information" subtitle="Identity and contact details">
           <FormInput
             label="Full Name"
             name="fullName"
@@ -221,7 +221,7 @@ function Registration() {
           />
         </FormSection>
  
-        <FormSection title="Blood & Location">
+        <FormSection icon="02" title="Blood and location" subtitle="Group and city of residence">
           <BloodGroupDropdown
             value={formData.bloodGroup}
             onChange={handleChange}
@@ -238,7 +238,7 @@ function Registration() {
           />
         </FormSection>
  
-        <FormSection title="Account Security">
+        <FormSection icon="03" title="Account security" subtitle="Used only for this registration form">
           <PasswordInput
             label="Password"
             name="password"

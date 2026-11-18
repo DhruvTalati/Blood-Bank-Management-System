@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
+import { IconPlus, IconSearch } from "../components/BrandIcons";
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const URGENCY_LEVELS = ["Normal", "Urgent", "Critical"];
@@ -225,13 +226,14 @@ function Requests() {
 
       <div className="page-header">
         <div>
-          <h1>Blood Requests</h1>
-
-          <p>Review and process blood requests from hospitals.</p>
+          <p className="page-kicker">Hospital workflow</p>
+          <h1>Blood requests</h1>
+          <p>Review, approve, and track transfusion requests.</p>
         </div>
 
         <button className="primary-btn" onClick={() => setShowForm(true)}>
-          + New Request
+          <IconPlus />
+          New request
         </button>
       </div>
 
@@ -254,7 +256,7 @@ function Requests() {
 
       <div className="dashboard-cards request-stats">
         <div className="dashboard-card">
-          <div className="card-icon">📋</div>
+          <div className="card-icon card-icon-pending">ALL</div>
 
           <div>
             <span>Total Requests</span>
@@ -264,7 +266,7 @@ function Requests() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">⏳</div>
+          <div className="card-icon card-icon-alert">PD</div>
 
           <div>
             <span>Pending</span>
@@ -274,7 +276,7 @@ function Requests() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">✅</div>
+          <div className="card-icon card-icon-ok">OK</div>
 
           <div>
             <span>Approved</span>
@@ -284,7 +286,7 @@ function Requests() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">✖️</div>
+          <div className="card-icon card-icon-blood">NO</div>
 
           <div>
             <span>Rejected</span>
@@ -298,7 +300,7 @@ function Requests() {
 
       <div className="donor-toolbar">
         <div className="search-box">
-          🔍
+          <IconSearch />
           <input
             type="text"
             placeholder="Search by hospital, patient or request ID..."

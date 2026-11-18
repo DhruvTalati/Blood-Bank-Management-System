@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
+import { IconRefresh } from "../components/BrandIcons";
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const LOW_STOCK_LIMIT = 50;
@@ -94,9 +95,9 @@ function Dashboard() {
 
       <div className="page-header">
         <div>
-          <h2>Dashboard</h2>
-
-          <p>Overview of your Blood Bank Management System.</p>
+          <p className="page-kicker">Operations</p>
+          <h1>Dashboard</h1>
+          <p>A live snapshot of donors, inventory, and transfusion demand.</p>
         </div>
 
         <button
@@ -104,7 +105,8 @@ function Dashboard() {
           onClick={loadDashboardData}
           disabled={loading}
         >
-          ↻ {loading ? "Refreshing..." : "Refresh"}
+          <IconRefresh />
+          {loading ? "Refreshing..." : "Refresh"}
         </button>
       </div>
 
@@ -114,7 +116,7 @@ function Dashboard() {
 
       <div className="dashboard-cards">
         <div className="dashboard-card">
-          <div className="card-icon">👥</div>
+          <div className="card-icon card-icon-donors">DR</div>
 
           <div>
             <span>Total Donors</span>
@@ -126,7 +128,7 @@ function Dashboard() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">🩸</div>
+          <div className="card-icon card-icon-blood">U+</div>
 
           <div>
             <span>Blood Units</span>
@@ -138,7 +140,7 @@ function Dashboard() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">📋</div>
+          <div className="card-icon card-icon-pending">RQ</div>
 
           <div>
             <span>Pending Requests</span>
@@ -150,7 +152,7 @@ function Dashboard() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">⚠️</div>
+          <div className="card-icon card-icon-alert">LS</div>
 
           <div>
             <span>Low Stock</span>
@@ -241,15 +243,13 @@ function Dashboard() {
 
           {requests.length === 0 ? (
             <div className="dashboard-empty">
-              <div>📋</div>
-
               <p>No blood requests yet.</p>
             </div>
           ) : (
             <div className="request-list">
               {requests.slice(0, 5).map((request) => (
                 <div className="request-item" key={request._id}>
-                  <div className="request-icon">🩸</div>
+                  <div className="request-icon">{request.bloodGroup}</div>
 
                   <div>
                     <strong>{request.hospital}</strong>
@@ -283,7 +283,7 @@ function Dashboard() {
 
       {lowStockGroups.length > 0 && (
         <div className="inventory-warning">
-          <div className="warning-icon">⚠️</div>
+          <div className="warning-icon">!</div>
 
           <div>
             <strong>Low Stock Alert</strong>

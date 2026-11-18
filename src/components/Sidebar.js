@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import {
+  DropIcon,
+  IconDashboard,
+  IconDonors,
+  IconInventory,
+  IconLogout,
+  IconProfile,
+  IconReports,
+  IconRequests,
+  IconSettings,
+  IconUsers,
+} from "./BrandIcons";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -45,58 +57,76 @@ function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="brand-icon">🩸</div>
+        <div className="brand-icon" aria-hidden="true">
+          <DropIcon className="login-drop-icon" />
+        </div>
 
         <div>
-          <h4>BloodBank</h4>
-          <span>Management System</span>
+          <h4>LifeLine</h4>
+          <span>Blood Bank Console</span>
         </div>
       </div>
 
       <nav className="sidebar-nav">
-        <p className="nav-title">MAIN MENU</p>
+        <p className="nav-title">Main menu</p>
 
         <NavLink to="/dashboard" className="sidebar-link">
-          <span>📊</span>
+          <span className="nav-icon">
+            <IconDashboard />
+          </span>
           Dashboard
         </NavLink>
 
         <NavLink to="/donors" className="sidebar-link">
-          <span>🧑‍⚕️</span>
+          <span className="nav-icon">
+            <IconDonors />
+          </span>
           Donors
         </NavLink>
 
         <NavLink to="/inventory" className="sidebar-link">
-          <span>🩸</span>
-          Blood Inventory
+          <span className="nav-icon">
+            <IconInventory />
+          </span>
+          Inventory
         </NavLink>
 
         <NavLink to="/requests" className="sidebar-link">
-          <span>📋</span>
-          Blood Requests
+          <span className="nav-icon">
+            <IconRequests />
+          </span>
+          Requests
         </NavLink>
 
-        <p className="nav-title">MANAGEMENT</p>
+        <p className="nav-title">Management</p>
 
         <NavLink to="/users" className="sidebar-link">
-          <span>👥</span>
+          <span className="nav-icon">
+            <IconUsers />
+          </span>
           Users
         </NavLink>
 
         <NavLink to="/reports" className="sidebar-link">
-          <span>📈</span>
+          <span className="nav-icon">
+            <IconReports />
+          </span>
           Reports
         </NavLink>
 
-        <p className="nav-title">ACCOUNT</p>
+        <p className="nav-title">Account</p>
 
         <NavLink to="/profile" className="sidebar-link">
-          <span>👤</span>
-          My Profile
+          <span className="nav-icon">
+            <IconProfile />
+          </span>
+          My profile
         </NavLink>
 
         <NavLink to="/settings" className="sidebar-link">
-          <span>⚙️</span>
+          <span className="nav-icon">
+            <IconSettings />
+          </span>
           Settings
         </NavLink>
       </nav>
@@ -109,8 +139,8 @@ function Sidebar() {
           <small>{user.role}</small>
         </div>
 
-        <button className="logout-btn" onClick={handleLogout} title="Logout">
-          🚪
+        <button className="logout-btn" onClick={handleLogout} title="Sign out">
+          <IconLogout />
         </button>
       </div>
     </aside>

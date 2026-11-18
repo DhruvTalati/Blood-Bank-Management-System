@@ -97,8 +97,9 @@ function Profile() {
       <div className="page-container">
         <div className="page-header">
           <div>
-            <h1>My Profile</h1>
-            <p>Manage your account information.</p>
+            <p className="page-kicker">Account</p>
+            <h1>My profile</h1>
+            <p>Manage your signed-in account.</p>
           </div>
         </div>
 
@@ -113,13 +114,14 @@ function Profile() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>My Profile</h1>
-          <p>Manage your account information.</p>
+          <p className="page-kicker">Account</p>
+          <h1>My profile</h1>
+          <p>Manage your signed-in account details.</p>
         </div>
 
         {!isEditing && (
           <button className="primary-btn" onClick={() => setIsEditing(true)}>
-            ✏️ Edit Profile
+            Edit profile
           </button>
         )}
       </div>
@@ -205,7 +207,7 @@ function Profile() {
                 </button>
 
                 <button type="submit" className="primary-btn" disabled={saving}>
-                  {saving ? "Saving..." : "💾 Save Changes"}
+                  {saving ? "Saving..." : "Save changes"}
                 </button>
               </div>
             )}

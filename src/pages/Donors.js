@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import { IconPlus, IconSearch } from "../components/BrandIcons";
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -136,16 +137,17 @@ function Donors() {
 
       <div className="page-header">
         <div>
-          <h2>Donor Management</h2>
-
-          <p>Manage registered blood donors and their information.</p>
+          <p className="page-kicker">Registry</p>
+          <h1>Donors</h1>
+          <p>Search, review, and maintain registered blood donors.</p>
         </div>
 
         <button
           className="primary-btn"
           onClick={() => navigate("/donors/register")}
         >
-          + Add Donor
+          <IconPlus />
+          Add donor
         </button>
       </div>
 
@@ -166,7 +168,7 @@ function Donors() {
 
       <div className="dashboard-cards donor-stats">
         <div className="dashboard-card">
-          <div className="card-icon">👥</div>
+          <div className="card-icon card-icon-donors">DR</div>
 
           <div>
             <span>Total Donors</span>
@@ -176,7 +178,7 @@ function Donors() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">🩸</div>
+          <div className="card-icon card-icon-blood">BG</div>
 
           <div>
             <span>Blood Groups</span>
@@ -193,7 +195,7 @@ function Donors() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">📅</div>
+          <div className="card-icon card-icon-pending">7D</div>
 
           <div>
             <span>Recent Donors</span>
@@ -216,7 +218,7 @@ function Donors() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">❤️</div>
+          <div className="card-icon card-icon-ok">ON</div>
 
           <div>
             <span>Active Donors</span>
@@ -232,7 +234,7 @@ function Donors() {
 
       <div className="donor-toolbar">
         <div className="search-box">
-          🔍
+          <IconSearch />
           <input
             type="text"
             placeholder="Search by name, email or mobile..."
@@ -274,7 +276,7 @@ function Donors() {
           </div>
         ) : filteredDonors.length === 0 ? (
           <div className="empty-donors">
-            <div className="empty-icon">🩸</div>
+            <div className="empty-icon">+</div>
 
             <h4>No donors found</h4>
 

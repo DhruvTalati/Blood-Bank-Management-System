@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { IconBell, IconLogout } from "./BrandIcons";
+
+const PAGE_META = {
+  "/dashboard": ["Operations", "Command center for donors, stock, and requests"],
+  "/donors": ["Donor registry", "Search, review, and maintain donor records"],
+  "/donors/register": ["Donor registry", "Register a new blood donor"],
+  "/inventory": ["Stock control", "Live units by blood group"],
+  "/requests": ["Hospital workflow", "Review and fulfil transfusion requests"],
+  "/users": ["Administration", "Staff and administrator accounts"],
+  "/reports": ["Insights", "Printable operational summary"],
+  "/profile": ["Your account", "Name, email, and assigned role"],
+  "/settings": ["Preferences", "Appearance and notification options"],
+};
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [user, setUser] = useState({
     name: "Admin",
@@ -42,17 +56,20 @@ function Navbar() {
   };
 
   const avatarLetter = user.name ? user.name.charAt(0).toUpperCase() : "A";
+  const [kicker, subtitle] =
+    PAGE_META[location.pathname] || PAGE_META["/dashboard"];
 
   return (
     <header className="main-navbar">
       <div>
-        <h5>Blood Bank Management</h5>
-        <p>Manage donors, inventory and blood requests</p>
+        <p className="navbar-kicker">{kicker}</p>
+        <h5>LifeLine Blood Bank</h5>
+        <p>{subtitle}</p>
       </div>
 
       <div className="navbar-actions">
-        <button className="notification-btn" title="Notifications">
-          🔔
+        <button className="icon-btn" title="Notifications">
+          <IconBell />
           <span className="notification-dot"></span>
         </button>
 
@@ -65,8 +82,8 @@ function Navbar() {
           </div>
         </div>
 
-        <button className="logout-btn" onClick={handleLogout} title="Logout">
-          🚪
+        <button className="icon-btn" onClick={handleLogout} title="Sign out">
+          <IconLogout />
         </button>
       </div>
     </header>

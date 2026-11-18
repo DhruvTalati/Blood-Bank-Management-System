@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/api";
+import { IconSearch } from "../components/BrandIcons";
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const LOW_STOCK_LIMIT = 50;
@@ -147,8 +148,9 @@ function Inventory() {
 
       <div className="page-header">
         <div>
-          <h2>Blood Inventory</h2>
-          <p>Monitor and manage available blood units.</p>
+          <p className="page-kicker">Stock control</p>
+          <h1>Blood inventory</h1>
+          <p>Monitor available units and restock groups that need attention.</p>
         </div>
       </div>
 
@@ -165,7 +167,7 @@ function Inventory() {
 
       <div className="dashboard-cards inventory-stats">
         <div className="dashboard-card">
-          <div className="card-icon">🩸</div>
+          <div className="card-icon card-icon-blood">U+</div>
 
           <div>
             <span>Total Blood Units</span>
@@ -175,7 +177,7 @@ function Inventory() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">📦</div>
+          <div className="card-icon card-icon-donors">08</div>
 
           <div>
             <span>Blood Groups</span>
@@ -185,7 +187,7 @@ function Inventory() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">⚠️</div>
+          <div className="card-icon card-icon-alert">LS</div>
 
           <div>
             <span>Low Stock</span>
@@ -195,7 +197,7 @@ function Inventory() {
         </div>
 
         <div className="dashboard-card">
-          <div className="card-icon">🏆</div>
+          <div className="card-icon card-icon-ok">HI</div>
 
           <div>
             <span>Highest Stock</span>
@@ -209,7 +211,7 @@ function Inventory() {
 
       <div className="donor-toolbar">
         <div className="search-box">
-          🔍
+          <IconSearch />
           <input
             type="text"
             placeholder="Search blood group..."
@@ -293,7 +295,7 @@ function Inventory() {
 
       {lowStockGroups.length > 0 && (
         <div className="inventory-warning">
-          <div className="warning-icon">⚠️</div>
+          <div className="warning-icon">!</div>
 
           <div>
             <strong>Low Stock Alert</strong>

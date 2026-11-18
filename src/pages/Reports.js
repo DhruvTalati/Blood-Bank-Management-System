@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import API from "../api/api";
+import { IconPrint } from "../components/BrandIcons";
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -84,13 +85,14 @@ function Reports() {
 
       <div className="page-header">
         <div>
+          <p className="page-kicker">Insights</p>
           <h1>Reports</h1>
-
-          <p>Overview of blood bank operations and statistics.</p>
+          <p>Operational summary of donors, stock, and request outcomes.</p>
         </div>
 
         <button className="primary-btn" onClick={handlePrint}>
-          🖨️ Print Report
+          <IconPrint />
+          Print report
         </button>
       </div>
 
@@ -106,7 +108,7 @@ function Reports() {
 
           <div className="reports-summary">
             <div className="report-stat-card">
-              <div className="report-stat-icon">👥</div>
+              <div className="report-stat-icon">DR</div>
 
               <div>
                 <span>Total Donors</span>
@@ -116,7 +118,7 @@ function Reports() {
             </div>
 
             <div className="report-stat-card">
-              <div className="report-stat-icon">🩸</div>
+              <div className="report-stat-icon">U+</div>
 
               <div>
                 <span>Blood Units</span>
@@ -126,7 +128,7 @@ function Reports() {
             </div>
 
             <div className="report-stat-card">
-              <div className="report-stat-icon">📋</div>
+              <div className="report-stat-icon">RQ</div>
 
               <div>
                 <span>Total Requests</span>
@@ -136,7 +138,7 @@ function Reports() {
             </div>
 
             <div className="report-stat-card">
-              <div className="report-stat-icon">✅</div>
+              <div className="report-stat-icon">OK</div>
 
               <div>
                 <span>Approved</span>
@@ -167,8 +169,6 @@ function Reports() {
                   return (
                     <div className="blood-report-row" key={group}>
                       <div className="blood-report-group">
-                        <span>🩸</span>
-
                         <strong>{group}</strong>
                       </div>
 

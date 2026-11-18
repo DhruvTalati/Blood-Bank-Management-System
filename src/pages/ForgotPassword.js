@@ -1,7 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
+function MailIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="M3.2 5.5h13.6c.4 0 .7.3.7.7v7.6c0 .4-.3.7-.7.7H3.2c-.4 0-.7-.3-.7-.7V6.2c0-.4.3-.7.7-.7Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M3 6.2 10 11l7-4.8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function ForgotPassword() {
+  const emailRef = useRef(null);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -12,67 +32,92 @@ function ForgotPassword() {
     setMessage("");
     setError("");
 
-    if (!email) {
-      setError("Please enter your email address.");
+    if (!email.trim()) {
+      setError("Please enter your registered email address.");
+      emailRef.current?.focus();
       return;
     }
 
-    if (!email.includes("@")) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setError("Please enter a valid email address.");
+      emailRef.current?.focus();
       return;
     }
 
-    setMessage("Password reset instructions have been sent to your email.");
-
+    setMessage(
+      "If an account exists for this email, password reset instructions have been sent.",
+    );
     setEmail("");
   };
 
   return (
     <div className="login-page">
-      <div className="login-card">
-        <div className="login-logo">🔐</div>
+      <div className="login-background-shape shape-one" />
+      <div className="login-background-shape shape-two" />
 
-        <h2>Forgot Password?</h2>
-
-        <p>
-          Enter your registered email address and we will help you reset your
-          password.
-        </p>
-
-        {error && <div className="request-message error">{error}</div>}
-
-        {message && <div className="request-message success">{message}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Email Address</label>
-
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter your registered email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+      <div className="login-container login-container--solo">
+        <section className="login-card" aria-labelledby="forgot-heading">
+          <div className="login-header">
+            <p className="login-kicker">Account recovery</p>
+            <h2 id="forgot-heading">Forgot password?</h2>
+            <p>
+              Enter the email on your administrator account. We will send reset
+              instructions if it is registered.
+            </p>
           </div>
 
-          <button type="submit" className="primary-btn full-width">
-            Send Reset Instructions
-          </button>
-        </form>
+          {error && (
+            <div className="login-error" role="alert">
+              <span aria-hidden="true">!</span>
+              {error}
+            </div>
+          )}
 
-        <div style={{ marginTop: "20px" }}>
-          <Link
-            to="/login"
-            style={{
-              color: "#dc2626",
-              textDecoration: "none",
-              fontSize: "13px",
-            }}
-          >
-            ← Back to Login
-          </Link>
-        </div>
+          {message && (
+            <div className="login-success" role="status">
+              {message}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="login-form-group">
+              <label htmlFor="forgot-email">Email address</label>
+              <div className={`login-input-wrapper ${error ? "has-error" : ""}`}>
+                <span className="input-icon">
+                  <MailIcon />
+                </span>
+                <input
+                  ref={emailRef}
+                  id="forgot-email"
+                  type="email"
+                  autoComplete="username"
+                  inputMode="email"
+                  placeholder="you@hospital.org"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setError("");
+                    setMessage("");
+                  }}
+                  aria-invalid={Boolean(error)}
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="login-btn">
+              Send reset instructions
+              <span className="login-arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+          </form>
+
+          <p className="login-footer">
+            <Link to="/login" className="login-back-link">
+              ← Back to sign in
+            </Link>
+          </p>
+        </section>
       </div>
     </div>
   );
