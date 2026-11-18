@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import API from "../api/api";
 import { IconRefresh } from "../components/BrandIcons";
 
@@ -23,10 +23,14 @@ function Dashboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    loadDashboardData();
-  }, []);
+    const fetchData = async () => {
+      await loadDashboardData();
+    };
 
-  const loadDashboardData = async () => {
+    fetchData();
+  }, [loadDashboardData]);
+
+  const loadDashboardData = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
@@ -66,7 +70,7 @@ function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const totalUnits = BLOOD_GROUPS.reduce(
     (total, group) => total + Number(inventory[group] || 0),

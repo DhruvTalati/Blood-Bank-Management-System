@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import API from "../api/api";
 import { IconPlus, IconSearch } from "../components/BrandIcons";
 
@@ -43,11 +43,16 @@ function Requests() {
 
   const [actioningId, setActioningId] = useState(null);
 
-  useEffect(() => {
-    loadRequests();
+  const showMessage = useCallback((text, type = "success") => {
+    setMessage(text);
+    setMessageType(type);
+
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   }, []);
 
-  const loadRequests = async () => {
+  const loadRequests = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -64,16 +69,11 @@ function Requests() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showMessage]);
 
-  const showMessage = (text, type = "success") => {
-    setMessage(text);
-    setMessageType(type);
-
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  };
+  useEffect(() => {
+    loadRequests();
+  }, [loadRequests]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -373,9 +373,7 @@ function Requests() {
                   <tr key={request._id}>
                     <td>
                       <strong>{request.hospital}</strong>
-                      <span className="table-subtext">
-                        {request.requestId}
-                      </span>
+                      <span className="table-subtext">{request.requestId}</span>
                     </td>
 
                     <td>

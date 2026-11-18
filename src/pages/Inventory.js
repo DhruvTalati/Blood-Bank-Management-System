@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import API from "../api/api";
 import { IconSearch } from "../components/BrandIcons";
 
@@ -26,11 +26,7 @@ function Inventory() {
   const [saving, setSaving] = useState(false);
   const [pageError, setPageError] = useState("");
 
-  useEffect(() => {
-    loadInventory();
-  }, []);
-
-  const loadInventory = async () => {
+  const loadInventory = useCallback(async () => {
     try {
       setLoading(true);
       setPageError("");
@@ -58,7 +54,11 @@ function Inventory() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [isAdmin]);
+
+  useEffect(() => {
+    loadInventory();
+  }, [loadInventory]);
 
   const openStockAction = (group, selectedAction) => {
     setSelectedGroup(group);

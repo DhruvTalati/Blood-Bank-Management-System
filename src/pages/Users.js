@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import API from "../api/api";
 import { IconPlus } from "../components/BrandIcons";
 
@@ -32,15 +32,7 @@ function Users() {
     status: "Active",
   });
 
-  useEffect(() => {
-    if (isAdmin) {
-      loadUsers();
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     try {
       setLoading(true);
       setPageError("");
@@ -51,14 +43,19 @@ function Users() {
         setUsers(response.data.users);
       }
     } catch (error) {
-      setPageError(
-        error.response?.data?.message || "Unable to load users.",
-      );
+      setPageError(error.response?.data?.message || "Unable to load users.");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
+  useEffect(() => {
+    if (isAdmin) {
+      loadUsers();
+    } else {
+      setLoading(false);
+    }
+  }, [isAdmin, loadUsers]);
   const resetForm = () => {
     setFormData({
       name: "",
@@ -482,7 +479,9 @@ function Users() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder={
-                      editingUser ? "Leave blank to keep current" : "Set a password"
+                      editingUser
+                        ? "Leave blank to keep current"
+                        : "Set a password"
                     }
                   />
                 </div>

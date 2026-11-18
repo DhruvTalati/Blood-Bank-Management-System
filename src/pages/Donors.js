@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { IconPlus, IconSearch } from "../components/BrandIcons";
@@ -19,12 +19,16 @@ function Donors() {
 
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("success");
+  const showMessage = useCallback((text, type = "success") => {
+    setMessage(text);
+    setMessageType(type);
 
-  useEffect(() => {
-    loadDonors();
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
   }, []);
 
-  const loadDonors = async () => {
+  const loadDonors = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -41,16 +45,11 @@ function Donors() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showMessage]);
 
-  const showMessage = (text, type = "success") => {
-    setMessage(text);
-    setMessageType(type);
-
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  };
+  useEffect(() => {
+    loadDonors();
+  }, [loadDonors]);
 
   const deleteDonor = async (id) => {
     const confirmed = window.confirm(
@@ -63,7 +62,7 @@ function Donors() {
       const response = await API.delete(`/donors/${id}`);
 
       if (response.data.success) {
-        loadDonors();
+        await loadDonors();
         showMessage("Donor deleted successfully.");
       }
     } catch (error) {
